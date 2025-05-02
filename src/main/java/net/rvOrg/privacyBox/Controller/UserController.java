@@ -30,7 +30,7 @@ public class UserController {
         UserEntity userIndb = userService.findUser(username);
         UserEntity existingUser = userService.findUser(user.getUsername());
         if(existingUser!=null){
-            return new ResponseEntity<>("Username already exist!!",HttpStatus.CONFLICT);
+            return new ResponseEntity<>("This username already exist!!",HttpStatus.CONFLICT);
         }
         userIndb.setUsername(user.getUsername());
         userIndb.setPassword(user.getPassword());
