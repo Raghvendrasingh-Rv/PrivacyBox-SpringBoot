@@ -1,7 +1,6 @@
 package net.rvOrg.privacyBox.Entity;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -13,6 +12,8 @@ import java.util.List;
 
 @Document(collection = "users")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
@@ -22,6 +23,8 @@ public class UserEntity {
     private String username;
     @NonNull
     private String password;
+    private String email;
+    private boolean sentimentAnalysis;
     private List<String> roles;
     @DBRef
     private List<JournalEntry> journalEntries = new ArrayList<>();
