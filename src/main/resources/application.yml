@@ -1,3 +1,5 @@
 spring:
   profiles:
-    active: prod
+    active: dev
+
+weatherApiKey: "c267c354194cc1aae3ca0c50866b4a86"
