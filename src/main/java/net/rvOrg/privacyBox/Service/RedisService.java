@@ -19,6 +19,10 @@ public class RedisService {
     public <T> T getDataIntoRedis(String key, Class<T> entityClass){
         try{
             Object res = redisTemplate.opsForValue().get(key);
+            if (res == null) {
+                log.warn("No value found for key "+ key);
+                return null;
+            }
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(res.toString(), entityClass);
         }catch(Exception e){

@@ -14,9 +14,12 @@ spring:
           starttls:
             enable: true
 
-  redis:
-   host: localhost
-   post: 6379
+
+  data:
+    redis:
+      host: redis-15199.crce182.ap-south-1-1.ec2.redns.redis-cloud.com
+      port: 15199
+      password: ENfpj9KnlIJIydEdxqq2rKT9lhVpoBB5
 
 
 weatherApiKey: "c267c354194cc1aae3ca0c50866b4a86"
