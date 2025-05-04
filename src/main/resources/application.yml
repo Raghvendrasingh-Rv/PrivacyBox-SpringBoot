@@ -2,4 +2,16 @@ spring:
   profiles:
     active: dev
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rv.singh.s.5330@gmail.com
+    password: mwqu pqhr anng nmba
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 weatherApiKey: "c267c354194cc1aae3ca0c50866b4a86"
