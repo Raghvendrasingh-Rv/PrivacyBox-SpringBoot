@@ -14,4 +14,9 @@ spring:
           starttls:
             enable: true
 
+  redis:
+   host: localhost
+   post: 6379
+
+
 weatherApiKey: "c267c354194cc1aae3ca0c50866b4a86"
