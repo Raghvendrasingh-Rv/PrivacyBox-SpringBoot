@@ -11,7 +11,8 @@ public class EmailServiceTests {
     @Autowired
     private EmailService emailService;
 
-    @Disabled("Reason for disabling this specific test")
+
+    @Disabled
     @Test
     public void testEmail(){
         emailService.sendEmail("raghvendra.singh174852@gmail.com", "Testing Java Email Sender", "Hi, this is my first mail from Java Email Sender");

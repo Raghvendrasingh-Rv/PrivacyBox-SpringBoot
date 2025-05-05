@@ -4,10 +4,12 @@ import net.rvOrg.privacyBox.Config.AppCache;
 import net.rvOrg.privacyBox.Entity.JournalEntry;
 import net.rvOrg.privacyBox.Entity.UserEntity;
 import net.rvOrg.privacyBox.Enums.Sentiments;
+import net.rvOrg.privacyBox.Model.SentimentData;
 import net.rvOrg.privacyBox.Repository.UserRepositoryImpl;
 import net.rvOrg.privacyBox.Service.EmailService;
 import net.rvOrg.privacyBox.Service.UserSentimentAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +34,9 @@ public class UserScheduler {
 
     @Autowired
     private AppCache appCache;
+
+    @Autowired
+    private KafkaTemplate<String, SentimentData> kafkaTemplate;
 
 
     @Scheduled(cron = "0 0 9 * * SUN")
@@ -59,7 +64,10 @@ public class UserScheduler {
                }
            }
            if(maxCountSentiment!=null){
-           emailService.sendEmail(user.getEmail(), "Sentiment for last 7 days - Yash pr bharosha mt krna", maxCountSentiment.toString());
+//           emailService.sendEmail(user.getEmail(), "Sentiment for last 7 days", maxCountSentiment.toString());
+               SentimentData sentimentData = SentimentData.builder().email(user.getEmail()).sentiment("Sentiment for last 7 days " + maxCountSentiment).build();
+               kafkaTemplate.send("weekly-sentiments", sentimentData.getEmail(), sentimentData);
+               //Kafka Producer
            }
         }
     }

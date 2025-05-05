@@ -12,7 +12,7 @@ public class UserSchedulerTests {
     @Autowired
     private UserScheduler userScheduler;
 
-    @Disabled("Reason for disabling this specific test")
+
     @Test
     public void testEmail(){
         userScheduler.fetchUserAndSendEmail();

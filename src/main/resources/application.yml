@@ -21,5 +21,33 @@ spring:
       port: 15199
       password: ENfpj9KnlIJIydEdxqq2rKT9lhVpoBB5
 
+  kafka:
+    bootstrap-servers: pkc-l7pr2.ap-south-1.aws.confluent.cloud:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: springboot-group-1
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        Spring:
+          json:
+            trusted:
+              package: net.rvOrg.privacyBox.*
+    properties:
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='DF2HM7RTTHBD6BOW' password='6Hf+3HZUpmBRwxdYllnob9fTQotoDD+60y9gKj14UE9lCAH0F1mn2OtMWORD2PvI';
+      security:
+        protocol: SASL_SSL
+      session:
+        timeout:
+          ms: 45000
+  
+#  client.id=ccloud-springboot-client-f7100ee9-93ca-4895-adcb-5cfe8192d666
+
+#  springboot-group-1
 
 weatherApiKey: "c267c354194cc1aae3ca0c50866b4a86"
