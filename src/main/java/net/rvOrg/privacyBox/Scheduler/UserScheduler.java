@@ -66,8 +66,12 @@ public class UserScheduler {
            if(maxCountSentiment!=null){
 //           emailService.sendEmail(user.getEmail(), "Sentiment for last 7 days", maxCountSentiment.toString());
                SentimentData sentimentData = SentimentData.builder().email(user.getEmail()).sentiment("Sentiment for last 7 days " + maxCountSentiment).build();
-               kafkaTemplate.send("weekly-sentiments", sentimentData.getEmail(), sentimentData);
-               //Kafka Producer
+               try{
+                   kafkaTemplate.send("weekly-sentiments", sentimentData.getEmail(), sentimentData);
+                   //Kafka Producer
+               }catch(Exception e){
+                   emailService.sendEmail(sentimentData.getEmail(), "Sentiment for last 7 days", sentimentData.getSentiment());
+               }
            }
         }
     }

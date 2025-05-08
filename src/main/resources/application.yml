@@ -29,12 +29,17 @@ spring:
     consumer:
       group-id: springboot-group-1
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
-        Spring:
+        spring:
           json:
             trusted:
-              package: net.rvOrg.privacyBox.*
+              package: net.rvOrg.privacyBox.Model.SentimentData
+          deserializer:
+            value:
+              delegate:
+                class: org.springframework.kafka.support.serializer.JsonDeserializer
+
     properties:
       sasl:
         mechanism: PLAIN
@@ -45,7 +50,7 @@ spring:
       session:
         timeout:
           ms: 45000
-  
+
 #  client.id=ccloud-springboot-client-f7100ee9-93ca-4895-adcb-5cfe8192d666
 
 #  springboot-group-1
