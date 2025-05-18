@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface JournalEntryRepository extends MongoRepository<JournalEntry, ObjectId> {
 
-    List<JournalEntry> findByReminderStatusTrueAndScheduledTimeBefore(LocalDateTime time);
+    List<JournalEntry> findByReminderStatusTrueAndScheduledTimeLessThanEqual(LocalDateTime time);
 }

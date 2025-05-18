@@ -28,7 +28,7 @@ public class Reminder {
 //    @Scheduled(fixedRate = 60000)
     public void searchReminder(){
 
-        List<JournalEntry> journalEntryList = journalEntryRepository.findByReminderStatusTrueAndScheduledTimeBefore(LocalDateTime.now());
+        List<JournalEntry> journalEntryList = journalEntryRepository.findByReminderStatusTrueAndScheduledTimeLessThanEqual(LocalDateTime.now());
         for(JournalEntry journalEntry: journalEntryList){
             try {
                 emailService.sendEmail(journalEntry.getUserEmail(), "Revisor: This a gentle reminder to revise your material", "Hello - Please revise you material with title: "+ journalEntry.getTitle()+" by login to the Revisor account");
