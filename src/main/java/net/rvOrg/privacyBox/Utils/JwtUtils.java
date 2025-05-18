@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -15,7 +17,8 @@ import java.util.Map;
 public class JwtUtils {
 
     // Ensure the secret key is at least 256 bits (32+ characters) for HS256
-    private final String SECRET_KEY = "TaK+HaV^uvCHEFsEVfypW#7g9^k*Z8$V";
+    @Value("${JWT_SECRET_KEY}")
+    private String SECRET_KEY;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
@@ -60,7 +63,8 @@ public class JwtUtils {
                 .compact();
     }
 
-    public Boolean validateToken(String token) {
-        return !isTokenExpired(token);
+    public boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

@@ -30,10 +30,11 @@ public class JournalEntryService {
     @Transactional
     public void createEntry(JournalEntry entry, String username){
         try{
-            JournalEntry saved = journalEntryRepository.save(entry);
             UserEntity user = userService.findUser(username);
+            entry.setUserEmail(user.getEmail());
+            JournalEntry saved = journalEntryRepository.save(entry);
             user.getJournalEntries().add(saved);
-            userService.createUser(user);
+            userService.updateUser(user);
         }
         catch(Exception e){
             System.out.println(e);

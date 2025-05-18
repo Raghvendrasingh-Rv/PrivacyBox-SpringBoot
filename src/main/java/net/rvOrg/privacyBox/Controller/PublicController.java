@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +36,7 @@ public class PublicController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
     @PostMapping("/loginUser")
     public ResponseEntity<?> login(@RequestBody UserEntity user){
         try{
@@ -45,7 +45,7 @@ public class PublicController {
             String token = jwtUtils.generateToken(userDetails.getUsername());
             return new ResponseEntity<>(token, HttpStatus.CREATED);
         }catch(Exception e){
-            log.error("Exception occurred while creatinAuthenticationToken", e);
+            log.error("Exception occurred while creating Authentication Token", e);
             return new ResponseEntity<>("Incorrect username or password",HttpStatus.BAD_REQUEST);
         }
     }

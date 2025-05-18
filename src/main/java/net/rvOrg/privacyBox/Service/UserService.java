@@ -35,6 +35,10 @@ public class UserService {
         entry.setRoles(Arrays.asList("USER"));
         userRepository.save(entry);
     }
+
+    public void updateUser(UserEntity user){
+        userRepository.save(user);
+    }
     
     
 

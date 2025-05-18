@@ -5,8 +5,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: rv.singh.s.5330@gmail.com
-    password: mwqu pqhr anng nmba
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -18,8 +18,8 @@ spring:
   data:
     redis:
       host: redis-15199.crce182.ap-south-1-1.ec2.redns.redis-cloud.com
-      port: 15199
-      password: ENfpj9KnlIJIydEdxqq2rKT9lhVpoBB5
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
 
   kafka:
     bootstrap-servers: pkc-l7pr2.ap-south-1.aws.confluent.cloud:9092
@@ -44,15 +44,11 @@ spring:
       sasl:
         mechanism: PLAIN
         jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='DF2HM7RTTHBD6BOW' password='6Hf+3HZUpmBRwxdYllnob9fTQotoDD+60y9gKj14UE9lCAH0F1mn2OtMWORD2PvI';
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='${KAFKA_USERNAME}' password='${KAFKA_PASSWORD}';
       security:
         protocol: SASL_SSL
       session:
         timeout:
           ms: 45000
 
-#  client.id=ccloud-springboot-client-f7100ee9-93ca-4895-adcb-5cfe8192d666
-
-#  springboot-group-1
-
-weatherApiKey: "c267c354194cc1aae3ca0c50866b4a86"
+weatherApiKey: ${WEATHER_API_KEY}
