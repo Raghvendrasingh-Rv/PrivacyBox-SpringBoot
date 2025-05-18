@@ -25,7 +25,7 @@ public class Reminder {
     private EmailService emailService;
 
 
-    @Scheduled(fixedRate = 60000)
+//    @Scheduled(fixedRate = 60000)
     public void searchReminder(){
 
         List<JournalEntry> journalEntryList = journalEntryRepository.findByReminderStatusTrueAndScheduledTimeBefore(LocalDateTime.now());
