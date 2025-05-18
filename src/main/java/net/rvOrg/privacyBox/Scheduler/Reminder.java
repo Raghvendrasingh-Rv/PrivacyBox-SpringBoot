@@ -34,8 +34,9 @@ public class Reminder {
                 emailService.sendEmail(journalEntry.getUserEmail(), "Revisor: This a gentle reminder to revise your material", "Hello - Please revise you material with title: "+ journalEntry.getTitle()+" by login to the Revisor account");
                 journalEntry.setReminderStatus(false);
                 journalEntryRepository.save(journalEntry);
+                log.info("Mail send successfully");
             } catch (Exception e) {
-                log.info("Error during email sending... "+e);
+                log.info("Error during email sending "+e);
             }
         }
     }

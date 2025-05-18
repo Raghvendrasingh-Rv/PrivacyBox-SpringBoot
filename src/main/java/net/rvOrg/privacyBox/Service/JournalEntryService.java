@@ -42,7 +42,7 @@ public class JournalEntryService {
         }
     }
 
-    public void createEntry(JournalEntry entry){
+    public void updateEntry(JournalEntry entry){
         journalEntryRepository.save(entry);
     }
 

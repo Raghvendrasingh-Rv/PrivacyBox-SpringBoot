@@ -20,7 +20,7 @@ public class EmailService {
             mail.setSubject(subject);
             mail.setText(body);
             javaMailSender.send(mail);
-
+            log.error("Email send successfully.");
         }catch(Exception e){
             log.error("Exception while sending email",e);
         }
