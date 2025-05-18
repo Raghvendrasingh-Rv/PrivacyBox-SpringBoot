@@ -17,7 +17,7 @@ public class WeatherService {
 
 //    private static final String apiKey;
 
-    @Value("${weatherApiKey}")
+    @Value("${WEATHER_API_KEY}")
     private String apiKey;
 
 

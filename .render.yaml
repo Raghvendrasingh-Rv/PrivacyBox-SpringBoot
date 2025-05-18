@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: PrivacyBox-SpringBoot
+    env: docker
+    plan: free
+    autoDeploy: true

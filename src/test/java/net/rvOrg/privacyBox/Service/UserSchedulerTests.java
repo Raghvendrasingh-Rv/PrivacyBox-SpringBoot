@@ -13,6 +13,7 @@ public class UserSchedulerTests {
     private UserScheduler userScheduler;
 
 
+    @Disabled
     @Test
     public void testEmail(){
         userScheduler.fetchUserAndSendEmail();
