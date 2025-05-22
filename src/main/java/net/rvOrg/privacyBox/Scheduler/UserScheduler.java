@@ -13,6 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class UserScheduler {
         List<UserEntity> users = userRepositoryImpl.getUserForSA();
         for(UserEntity user: users){
            List<JournalEntry> journalEntries =  user.getJournalEntries();
-           List<Sentiments> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getSentiments()).collect(Collectors.toList());
+           List<Sentiments> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(Instant.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getSentiments()).collect(Collectors.toList());
 
            Map<Sentiments, Integer> sentimentCount =  new HashMap<>();
 

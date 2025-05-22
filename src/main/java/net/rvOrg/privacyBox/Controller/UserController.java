@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -48,6 +49,18 @@ public class UserController {
     private JwtUtils jwtUtils;
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @GetMapping("getAllUser")
+    public ResponseEntity<List<UserEntity>> getAllUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        try{
+            List<UserEntity> getAll = userService.gelAllUser();
+            return new ResponseEntity<>(getAll, HttpStatus.FOUND);
+        }catch(Exception err){
+            log.error("Error while fetching all user", err);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @GetMapping("/userInfo")
     public ResponseEntity<?> getUserInfo(){

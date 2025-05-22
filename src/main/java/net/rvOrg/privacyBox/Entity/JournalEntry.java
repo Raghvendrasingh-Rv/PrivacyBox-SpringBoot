@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -24,8 +25,8 @@ public class JournalEntry {
     private String content;
     private String fileType = null;
     private String fileUrl = null;
-    private LocalDateTime date;
-    private LocalDateTime scheduledTime;
+    private Instant date;
+    private Instant scheduledTime;
     private String userEmail;
     private Sentiments sentiments;
     private boolean reminderStatus;

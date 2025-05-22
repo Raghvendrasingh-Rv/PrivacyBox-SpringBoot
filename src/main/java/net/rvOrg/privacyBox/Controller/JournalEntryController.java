@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.core.sync.RequestBody;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class JournalEntryController {
     public ResponseEntity<JournalEntry> createEntry(@org.springframework.web.bind.annotation.RequestBody JournalEntry entry){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         try{
-            entry.setDate(LocalDateTime.now());
+            entry.setDate(Instant.now());
             journalEntryService.createEntry(entry, authentication.getName());
             return new ResponseEntity<>(entry, HttpStatus.CREATED);
         }
