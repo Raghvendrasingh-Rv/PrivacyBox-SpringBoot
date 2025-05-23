@@ -7,6 +7,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
+
 @Data
 @Document(collection = "sharedTable")
 public class SharedEntity {
@@ -14,10 +16,9 @@ public class SharedEntity {
     @Id
     @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
-    private JournalEntry journalId;
-    @JsonSerialize(using = ToStringSerializer.class)
-    private ObjectId senderId;
-    @JsonSerialize(using = ToStringSerializer.class)
-    private ObjectId receiverId;
+    private JournalEntry journal;
+    private UserEntity sender;
+    private UserEntity receiver;
     private boolean seen;
+    private Instant sentTime;
 }

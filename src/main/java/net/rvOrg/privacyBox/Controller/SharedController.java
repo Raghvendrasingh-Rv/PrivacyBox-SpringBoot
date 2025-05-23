@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,7 @@ public class SharedController {
     public ResponseEntity<?> createSharedEntry(@RequestBody SharedEntity entry){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         try{
+            entry.setSentTime(Instant.now());
             sharedService.createSharedEntry(entry);
             return new ResponseEntity<>(entry, HttpStatus.CREATED);
         }catch(Exception err){
