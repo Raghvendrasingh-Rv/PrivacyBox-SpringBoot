@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 @Document(collection = "sharedTable")
@@ -19,6 +20,6 @@ public class SharedEntity {
     private JournalEntry journal;
     private UserEntity sender;
     private UserEntity receiver;
-    private boolean seen;
+    private boolean seen=false;
     private Instant sentTime;
 }

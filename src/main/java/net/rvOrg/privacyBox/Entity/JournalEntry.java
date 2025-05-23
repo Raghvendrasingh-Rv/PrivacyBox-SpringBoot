@@ -26,7 +26,7 @@ public class JournalEntry {
     private String fileType = null;
     private String fileUrl = null;
     private Instant date;
-    private Instant scheduledTime;
+    private LocalDateTime scheduledTime;
     private String userEmail;
     private Sentiments sentiments;
     private boolean reminderStatus;
