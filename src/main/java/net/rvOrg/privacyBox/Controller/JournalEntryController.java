@@ -97,6 +97,7 @@ public class JournalEntryController {
                 oldE.setContent(newE.getContent()!=null && !newE.getContent().equals("") ? newE.getContent(): oldE.getContent());
                 oldE.setReminderStatus(newE.isReminderStatus());
                 oldE.setScheduledTime(newE.getScheduledTime());
+                System.out.println("Updated");
                 journalEntryService.updateEntry(oldE);
                 return new ResponseEntity<>(oldE, HttpStatus.OK);
             }

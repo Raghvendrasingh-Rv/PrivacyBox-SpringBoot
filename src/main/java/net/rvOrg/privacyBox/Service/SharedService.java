@@ -20,10 +20,10 @@ public class SharedService {
     }
 
     public List<SharedEntity> findByReceiverId(ObjectId myId){
-        return sharedRepository.findByReceiverId(myId);
+        return sharedRepository.findByReceiver_Id(myId);
     }
 
     public List<SharedEntity> findBySenderId(ObjectId myId){
-        return sharedRepository.findBySenderId(myId);
+        return sharedRepository.findBySender_Id(myId);
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface SharedRepository extends MongoRepository<SharedEntity, ObjectId> {
 
-    List<SharedEntity> findByReceiverId(ObjectId myId);
-    List<SharedEntity> findBySenderId(ObjectId myId);
+    List<SharedEntity> findByReceiver_Id(ObjectId myId);
+    List<SharedEntity> findBySender_Id(ObjectId myId);
+    List<SharedEntity> findByJournal_Id(ObjectId myId);
 }

@@ -1,8 +1,12 @@
 package net.rvOrg.privacyBox.Controller;
 
 import lombok.extern.slf4j.Slf4j;
+import net.rvOrg.privacyBox.Entity.JournalEntry;
 import net.rvOrg.privacyBox.Entity.SharedEntity;
 import net.rvOrg.privacyBox.Entity.UserEntity;
+import net.rvOrg.privacyBox.Repository.JournalEntryRepository;
+import net.rvOrg.privacyBox.Repository.UserRepository;
+import net.rvOrg.privacyBox.Service.JournalEntryService;
 import net.rvOrg.privacyBox.Service.SharedService;
 import net.rvOrg.privacyBox.Service.UserService;
 import org.bson.types.ObjectId;
@@ -28,12 +32,34 @@ public class SharedController {
     private SharedService sharedService;
 
     @Autowired
+    private JournalEntryService journalEntryService;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private JournalEntryRepository journalEntryRepository;
 
     @PostMapping("/createSharedEntry")
     public ResponseEntity<?> createSharedEntry(@RequestBody SharedEntity entry){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         try{
+            ObjectId senderId = entry.getSender().getId();
+            ObjectId receiverId = entry.getReceiver().getId();
+            ObjectId journalId = entry.getJournal().getId();
+
+            // Fetch full referenced entities
+            UserEntity sender = userRepository.findById(senderId).orElseThrow();
+            UserEntity receiver = userRepository.findById(receiverId).orElseThrow();
+            JournalEntry journal = journalEntryRepository.findById(journalId).orElseThrow();
+
+            // Set them back to ensure consistent @DBRef mapping
+            entry.setSender(sender);
+            entry.setReceiver(receiver);
+            entry.setJournal(journal);
             entry.setSentTime(Instant.now());
             sharedService.createSharedEntry(entry);
             return new ResponseEntity<>(entry, HttpStatus.CREATED);

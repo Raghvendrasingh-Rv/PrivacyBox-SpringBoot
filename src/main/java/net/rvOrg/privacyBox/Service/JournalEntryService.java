@@ -1,8 +1,10 @@
 package net.rvOrg.privacyBox.Service;
 
 import net.rvOrg.privacyBox.Entity.JournalEntry;
+import net.rvOrg.privacyBox.Entity.SharedEntity;
 import net.rvOrg.privacyBox.Entity.UserEntity;
 import net.rvOrg.privacyBox.Repository.JournalEntryRepository;
+import net.rvOrg.privacyBox.Repository.SharedRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,9 @@ public class JournalEntryService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SharedRepository sharedRepository;
 
     public List<JournalEntry> gelAll(){
         return journalEntryRepository.findAll();
@@ -50,13 +55,19 @@ public class JournalEntryService {
         return journalEntryRepository.findById(myId);
     }
 
+    @Transactional
     public boolean deleteJournalById(String username, ObjectId myId){
         boolean removed = false;
         try{
             UserEntity user = userService.findUser(username);
             removed = user.getJournalEntries().removeIf(entity -> entity.getId().equals(myId));
+            List<SharedEntity> sharedEntities= sharedRepository.findByJournal_Id(myId);
+
+            for(SharedEntity sharedEntry: sharedEntities){
+                sharedRepository.delete(sharedEntry);
+            }
             if(removed){
-                userService.createUser(user);
+                userService.updateUser(user);
                 journalEntryRepository.deleteById(myId);
             }
         }
