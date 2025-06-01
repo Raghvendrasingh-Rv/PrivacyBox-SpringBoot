@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Slf4j
@@ -27,8 +28,8 @@ public class Reminder {
 
 //    @Scheduled(fixedRate = 60000)
     public void searchReminder(){
-
-        List<JournalEntry> journalEntryList = journalEntryRepository.findByReminderStatusTrueAndScheduledTimeLessThanEqual(LocalDateTime.now());
+        LocalDateTime nowIST = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        List<JournalEntry> journalEntryList = journalEntryRepository.findByReminderStatusTrueAndScheduledTimeLessThanEqual(nowIST);
         for(JournalEntry journalEntry: journalEntryList){
             try {
                 emailService.sendEmail(journalEntry.getUserEmail(), "Revisor: This a gentle reminder to revise your material", "Hello - Please revise you material with title: "+ journalEntry.getTitle()+" by login to the Revisor account");
