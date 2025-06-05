@@ -58,7 +58,7 @@ public class JwtUtils {
                 .setSubject(subject)
                 .setHeaderParam("typ", "JWT")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 50)) // 50 minutes
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 120)) // 120 minutes
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
