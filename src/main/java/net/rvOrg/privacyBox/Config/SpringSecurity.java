@@ -55,6 +55,7 @@ public class SpringSecurity {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/journal/**", "/user/**").authenticated()
+                        .requestMatchers("/auth/google/callback", "/auth/**").permitAll()
                         .anyRequest().permitAll())
                 .authenticationProvider(authenticationProvider())  // <- Call method directly
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

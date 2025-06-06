@@ -31,7 +31,7 @@ public class UserEntity {
     private boolean sentimentAnalysis;
     private List<String> roles;
     @DBRef
-    @JsonIgnore
+//    @JsonIgnore
     private List<JournalEntry> journalEntries = new ArrayList<>();
 
 }

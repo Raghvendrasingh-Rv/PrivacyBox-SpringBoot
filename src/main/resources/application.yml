@@ -52,3 +52,8 @@ spring:
           ms: 45000
 
 weatherApiKey: ${WEATHER_API_KEY}
+
+clientId: ${GOOGLE_CLIENT_ID}
+clientSecret: ${GOOGLE_CLIENT_SECRET}
+frontendProdEndpoint : ${FRONTEND_PROD_ENDPOINT}
+backendProdEndpoint : ${BACKEND_PROD_ENDPOINT}
