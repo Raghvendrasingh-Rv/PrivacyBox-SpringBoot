@@ -32,7 +32,18 @@ public class Reminder {
         List<JournalEntry> journalEntryList = journalEntryRepository.findByReminderStatusTrueAndScheduledTimeLessThanEqual(nowIST);
         for(JournalEntry journalEntry: journalEntryList){
             try {
-                emailService.sendEmail(journalEntry.getUserEmail(), "Revisor: This a gentle reminder to revise your material", "Hello - Please revise you material with title: "+ journalEntry.getTitle()+" by login to the Revisor account");
+                String fullEmail = journalEntry.getUserEmail();
+                String username = fullEmail.substring(0, fullEmail.indexOf('@'));
+
+                String subject = "Revisorr: Gentle Reminder to Revise Your Material";
+                String message = "Hello " + username + ",\n\n"
+                        + "This is a friendly reminder from Revisor to review your material titled: \"" + journalEntry.getTitle() + "\".\n\n"
+                        + "To continue your learning journey, please log in to your Revisorr account:\n"
+                        + "https://revisorr.netlify.app\n\n"
+                        + "Stay consistent, and happy revising!\n\n"
+                        + "— The Revisorr Team";
+
+                emailService.sendEmail(fullEmail, subject, message);
                 journalEntry.setReminderStatus(false);
                 journalEntryRepository.save(journalEntry);
                 log.info("Mail send successfully");
