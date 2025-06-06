@@ -93,18 +93,10 @@ public class GoogleAuthController {
                 }
                 String jwtToken = jwtUtils.generateToken(email);
 
-                ResponseCookie cookie = ResponseCookie.from("token", jwtToken)
-                        .httpOnly(false)
-                        .secure(true) // ⚠️
-                        .sameSite("None")
-                        .path("/")
-                        .maxAge(Duration.ofDays(1))
-                        .build();
+                String redirectUrl = frontendProdEndpoint+"/googleLoginSuccessPage?token=" + jwtToken;
 
-                // Redirect to frontend success page (no token in URL)
                 return ResponseEntity.status(HttpStatus.FOUND)
-                        .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                        .location(URI.create(frontendProdEndpoint+"/googleLoginSuccessPage"))
+                        .location(URI.create(redirectUrl))
                         .build();
             }
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
