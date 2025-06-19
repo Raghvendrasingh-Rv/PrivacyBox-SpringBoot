@@ -2,7 +2,7 @@ package net.rvOrg.privacyBox.Entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.rvOrg.privacyBox.Enums.Sentiments;
+import net.rvOrg.privacyBox.Enums.Category;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Document(collection = "journalEntry")
 @Data
@@ -28,7 +27,7 @@ public class JournalEntry {
     private Instant date;
     private LocalDateTime scheduledTime;
     private String userEmail;
-    private Sentiments sentiments;
+    private Category category;
     private boolean reminderStatus;
 
 }

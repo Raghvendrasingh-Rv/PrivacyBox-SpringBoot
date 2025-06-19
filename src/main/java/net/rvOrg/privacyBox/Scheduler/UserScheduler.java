@@ -3,7 +3,7 @@ package net.rvOrg.privacyBox.Scheduler;
 import net.rvOrg.privacyBox.Config.AppCache;
 import net.rvOrg.privacyBox.Entity.JournalEntry;
 import net.rvOrg.privacyBox.Entity.UserEntity;
-import net.rvOrg.privacyBox.Enums.Sentiments;
+import net.rvOrg.privacyBox.Enums.Category;
 import net.rvOrg.privacyBox.Model.SentimentData;
 import net.rvOrg.privacyBox.Repository.UserRepositoryImpl;
 import net.rvOrg.privacyBox.Service.EmailService;
@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
@@ -45,20 +44,20 @@ public class UserScheduler {
         List<UserEntity> users = userRepositoryImpl.getUserForSA();
         for(UserEntity user: users){
            List<JournalEntry> journalEntries =  user.getJournalEntries();
-           List<Sentiments> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(Instant.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getSentiments()).collect(Collectors.toList());
+           List<Category> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(Instant.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getCategory()).collect(Collectors.toList());
 
-           Map<Sentiments, Integer> sentimentCount =  new HashMap<>();
+           Map<Category, Integer> sentimentCount =  new HashMap<>();
 
-           for(Sentiments one: sentiments){
+           for(Category one: sentiments){
                if(one!=null){
                    sentimentCount.put(one, sentimentCount.getOrDefault(one,0)+1);
                }
            }
 
-           Sentiments maxCountSentiment = null;
+           Category maxCountSentiment = null;
            int maxCount =0;
 
-           for(Map.Entry<Sentiments, Integer> i : sentimentCount.entrySet()){
+           for(Map.Entry<Category, Integer> i : sentimentCount.entrySet()){
                if(i.getValue()>maxCount){
                    maxCountSentiment = i.getKey();
                    maxCount = i.getValue();
