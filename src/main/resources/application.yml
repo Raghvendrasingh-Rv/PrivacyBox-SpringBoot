@@ -13,7 +13,23 @@ spring:
           auth: true
           starttls:
             enable: true
+#  ai:
+#    ollama:
+#      chat:
+#        options:
+#          model: deepseek-r1:latest
 
+  ai:
+    ollama:
+      embedding:
+        model: nomic-embed-text
+
+    vectorstore:
+      mongodb:
+        collection-name: rag_chunks
+        index-name: rag_index
+        initialize-schema: true
+#        path-name: embedding
 
   data:
     redis:
@@ -57,3 +73,6 @@ clientId: ${GOOGLE_CLIENT_ID}
 clientSecret: ${GOOGLE_CLIENT_SECRET}
 frontendProdEndpoint : ${FRONTEND_PROD_ENDPOINT}
 backendProdEndpoint : ${BACKEND_PROD_ENDPOINT}
+openrouter:
+  api:
+    key: ${OPEN_API_KEY}
